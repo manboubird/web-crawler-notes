@@ -1,0 +1,64 @@
+digraph architecture {
+
+  subgraph cluster_datasource {
+    label ="data source";
+    node [shape=ellipse, fontsize=8]; 
+    ds_gathering [label="web resouce url"];
+    ds_scraping [label="raw data"];
+    ds_analysis [label="transformed data"];
+    ds_servering [label="served data"];
+  }
+
+  subgraph cluster_offline_service {
+    label ="offline service";
+
+    subgraph cluster_gathering {
+      label ="1. gathering";
+      node [shape=component]; sheduler downloader;
+    }
+
+    subgraph cluster_scraping {
+      label ="2. scraping";
+      node [shape=component]; extractor;
+
+      subgraph cluster_scraper {
+        label ="item";
+        node [shape=box]; image link text;
+      }
+    }
+
+    subgraph cluster_analysis {
+      label ="3. analysis";
+      node [shape=component]; analyzer;
+
+      subgraph cluster_analysis_function {
+        label ="function";
+        node [shape=box]; trend_detection ranking recommendation link_scoring;
+      }
+    }
+  }
+
+  {ds_gathering ds_analysis} -> sheduler -> downloader -> 
+  ds_scraping -> extractor -> 
+  ds_analysis -> analyzer ->
+  ds_servering
+  ;
+
+  subgraph cluster_online_service {
+    label="online service"
+
+    node [shape=component]; server;
+
+    subgraph cluster_client {
+      label="client"
+      node [shape=component]; client;
+
+      subgraph cluster_client_function {
+        label ="function";
+        node [shape=box]; requesting rendering ;
+      }
+    }
+  }
+
+  ds_servering -> server -> client
+}
