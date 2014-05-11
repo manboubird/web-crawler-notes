@@ -9,8 +9,8 @@ Architecture
 | ------------- |:-------------:| 
 | scheduler | scrapy | 
 | downloader | scrapy | 
-| extractor  | spray/scalding/scrapy | 
-| analyzer  | spray/scalding/scrapy | 
+| extractor  | webstruct/boilerpipe/jsoup/kuromoji/tika/scalding |
+| analyzer  | scalding/kiji/CascadingPattern | 
 | server  | spray | 
 | client  | - | 
 
